@@ -940,26 +940,6 @@ def dusk(
         ).astimezone(
             tzinfo  # type: ignore
         )
-
-        tot_date = tot.date()
-        if tot_date != date:
-            if tot_date < date:
-                delta = datetime.timedelta(days=1)
-            else:
-                delta = datetime.timedelta(days=-1)
-            new_date = date + delta
-
-            tot = time_of_transit(
-                observer,
-                new_date,
-                90.0 + dep,
-                SunDirection.SETTING,
-            ).astimezone(
-                tzinfo  # type: ignore
-            )
-            tot_date = tot.date()
-            if tot_date != date:
-                raise ValueError("Unable to find a dusk time on the date specified")
         return tot
     except ValueError as exc:
         if exc.args[0] == "math domain error":
